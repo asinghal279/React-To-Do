@@ -1,0 +1,16 @@
+.input-form{
+    display: flex;
+    justify-content: center;
+}
+
+
+.input-form input[type=text]{
+    width: 200px;
+    margin-right: 20px;
+    font-size: 20px;
+    padding: 8px;
+}
+
+.input-form input[type=submit]{
+    padding: 12px;
+}

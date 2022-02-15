@@ -1,0 +1,13 @@
+.card{
+    padding: 20px;
+    box-shadow: 1px 1px 6px 0px #0000004a;
+    margin: 20px auto;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+}
+
+.card .cross{
+    cursor: pointer;
+}
