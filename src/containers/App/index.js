@@ -1,5 +1,5 @@
 import { findIndex } from 'lodash';
-import React, { Component, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './_index.css';
 import Header from '../../components/Header';
 import InputForm from '../../components/InputForm.js/index.js';
@@ -16,13 +16,13 @@ export default function App() {
     setItemsList(data);
   }, [])
 
-  const handleAddItem = (value) => {
+  const handleAddItem = useCallback((value) => {
 
     const itemsList = [...items];
 
     const index = findIndex(itemsList, (item) => item.name === value);
 
-    if(index === -1){
+    if (index === -1) {
       const itemObject = {
         name: value,
         id: Date.now(),
@@ -34,27 +34,26 @@ export default function App() {
 
       setItems(itemsList);
     }
-  }
+  }, [items]);
 
-  const handleDeleteItem = (itemID) => {
-    
+  const handleDeleteItem = useCallback((itemID) => {
+
     const itemsList = [...items];
 
     const index = findIndex(items, (item) => item.id === itemID);
 
     itemsList.splice(index, 1);
 
-    setItemsList(itemsList); 
-    
-    setItems(itemsList);
-  }
+    setItemsList(itemsList);
 
+    setItems(itemsList);
+  }, [items]);
 
   return (
     <div className="App">
       <Header text="To-Do App" />
-      <InputForm handleAddItem={handleAddItem}/>
-      <ListRenderer items={items} handleDeleteItem={handleDeleteItem}/>
+      <InputForm handleAddItem={handleAddItem} />
+      <ListRenderer items={items} handleDeleteItem={handleDeleteItem} />
     </div>
   )
 }

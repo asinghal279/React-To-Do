@@ -1,7 +1,7 @@
 import React from 'react'
 import './_index.css'
 
-export default function ItemCard(props) {
+export default React.memo(function ItemCard(props) {
 
   const {name, id, handleDeleteItem} = props;
 
@@ -11,4 +11,4 @@ export default function ItemCard(props) {
         <span onClick={() => handleDeleteItem(id)} name="card" className='cross'>&#10060;</span>
     </div>
   )
-}
+})

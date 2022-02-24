@@ -2,7 +2,7 @@ import React from 'react'
 import ItemCard from '../ItemCard';
 import './_index.css';
 
-export default function ListRenderer(props) {
+export default React.memo(function ListRenderer(props) {
 
   const { items, handleDeleteItem } = props;
 
@@ -14,4 +14,4 @@ export default function ListRenderer(props) {
       }
     </div>
   )
-}
+})

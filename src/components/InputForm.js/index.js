@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './_index.css';
 
-export default function InputForm(props) {
+export default React.memo(function InputForm(props) {
 
   const [itemName, setItemName] = useState("");
 
@@ -26,4 +26,4 @@ export default function InputForm(props) {
         <input type="submit" value="Add"/>
     </form>
   )
-}
+})
