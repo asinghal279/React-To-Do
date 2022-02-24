@@ -1,18 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './_index.css'
 
-export class ItemCard extends Component {
-  render() {
+export default function ItemCard(props) {
 
-    const {name, id, handleDeleteItem} = this.props;
+  const {name, id, handleDeleteItem} = props;
 
-    return (
-      <div className='card'>
-          {name}
-          <span onClick={() => handleDeleteItem(id)} name="card" className='cross'>&#10060;</span>
-      </div>
-    )
-  }
+  return (
+    <div className='card'>
+        {name}
+        <span onClick={() => handleDeleteItem(id)} name="card" className='cross'>&#10060;</span>
+    </div>
+  )
 }
-
-export default ItemCard

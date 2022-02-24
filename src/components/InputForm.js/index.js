@@ -1,43 +1,29 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import './_index.css';
 
-export class InputForm extends Component {
+export default function InputForm(props) {
 
-    constructor(props) {
-      super(props)
+  const [itemName, setItemName] = useState("");
+
+  const handleInputChange = (e) => setItemName( e.target.value )
+
+  const handleOnSubmit = (e) => {
     
-      this.state = {
-         itemName: "",
-      }
+    e.preventDefault();
+
+    const { handleAddItem } = props;
+
+    if(itemName !== ""){
+      handleAddItem(itemName);
     }
-    
-  handleInputChange = (e) => this.setState({itemName: e.target.value})
 
-  handleOnSubmit = (e) => {
-
-    const {itemName} = this.state;
-    const {handleAddItem} = this.props;
-
-      e.preventDefault();
-
-      if(itemName !== ""){
-        handleAddItem(itemName);
-      }
-
-      this.setState({itemName: ""});
+    setItemName("");
   }
 
-  render() {
-
-    const {itemName} = this.state;
-
-    return (
-      <form className='input-form' onSubmit={this.handleOnSubmit}>
-          <input type="text" id="item-input" value={itemName} onChange={this.handleInputChange} placeholder="Add item"/>
-          <input type="submit" value="Add"/>
-      </form>
-    )
-  }
+  return (
+    <form className='input-form' onSubmit={handleOnSubmit}>
+        <input type="text" id="item-input" value={itemName} onChange={handleInputChange} placeholder="Add item"/>
+        <input type="submit" value="Add"/>
+    </form>
+  )
 }
-
-export default InputForm

@@ -1,67 +1,60 @@
 import { findIndex } from 'lodash';
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import './_index.css';
 import Header from '../../components/Header';
 import InputForm from '../../components/InputForm.js/index.js';
 import ListRenderer from '../../components/ListRenderer';
 import { getAllItems, setItems } from '../../utils/api';
 
+export default function App() {
 
+  const [items, setItemsList] = useState([]);
 
-export class App extends Component {
+  useEffect(() => {
+    let data = getAllItems();
+    data = Array.isArray(data) ? data : JSON.parse(data);
+    setItemsList(data);
+  }, [])
 
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       items: [],
-      }
-    }
+  const handleAddItem = (value) => {
 
-  componentDidMount () {
-    let items = getAllItems();
-    items = Array.isArray(items) ? items : JSON.parse(items);
-    this.setState({items});
-  }
-    
-  handleAddItem = (value) => {
-    const {items} = {...this.state};
-    const index = findIndex(items, (item) => item.name === value);
+    const itemsList = [...items];
+
+    const index = findIndex(itemsList, (item) => item.name === value);
 
     if(index === -1){
       const itemObject = {
         name: value,
         id: Date.now(),
       }
-      items.push(itemObject);
-  
-      this.setState({items}, () => setItems(items));
+
+      itemsList.push(itemObject);
+
+      setItemsList(itemsList);
+
+      setItems(itemsList);
     }
   }
 
-  handleDeleteItem = (itemID) => {
-    const {items} = {...this.state};
+  const handleDeleteItem = (itemID) => {
+    
+    const itemsList = [...items];
 
     const index = findIndex(items, (item) => item.id === itemID);
 
-    items.splice(index, 1);
+    itemsList.splice(index, 1);
 
-    this.setState({items}, () => setItems(items));
+    setItemsList(itemsList); 
+    
+    setItems(itemsList);
   }
 
 
-  render() {
-
-    const {items} = this.state;
-
-    return (
-      <div className="App">
-        <Header text="To-Do App" />
-        <InputForm handleAddItem={this.handleAddItem}/>
-        <ListRenderer items={items} handleDeleteItem={this.handleDeleteItem}/>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Header text="To-Do App" />
+      <InputForm handleAddItem={handleAddItem}/>
+      <ListRenderer items={items} handleDeleteItem={handleDeleteItem}/>
+    </div>
+  )
 }
-
-export default App
